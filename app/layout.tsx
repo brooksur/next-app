@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import NavBar from './NavBar'
 import { Suspense } from 'react'
 import Loading from './loading'
-
+import AuthProvider from './auth/Provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="business">
       <body className={inter.className}>
-        <NavBar />
-        <main className="p-5">
-          <Suspense fallback={<Loading />}>{children}</Suspense>
-        </main>
+        <AuthProvider>
+          <NavBar />
+          <main className="p-5">
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </main>
+        </AuthProvider>
       </body>
     </html>
   )
